@@ -26,6 +26,7 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
             return(
             <div key={playlist.id} className="rounded-xl bg-slate-700 p-2 shadow-sm text-center">
                 <div className="flex p-4">
+                    {playlist.images[0].url ? 
                     <Image 
                     src={playlist.images[0].url} 
                     alt={playlist.description || playlist.name}
@@ -34,7 +35,8 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
                     layout='responsive'
                     objectFit="cover"
                     className="w-[200px] h-[200px]"
-                    />
+                    /> :
+                    <p>0 imagen</p>}
                 </div>
                 <div>
                     <h3 className="ml-2 text-sm font-medium text-white">{playlist.name}</h3>
