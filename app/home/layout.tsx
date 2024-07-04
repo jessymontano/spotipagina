@@ -16,7 +16,7 @@ export default async function RootLayout({
   return (
     <html lang="en">
       <AuthSessionProvider session={session}>
-        <body className={inter.className}>{children}</body>
+        <body className={`${inter.className} bg-slate-950`}>{children}</body>
       </AuthSessionProvider>
     </html>
   );
