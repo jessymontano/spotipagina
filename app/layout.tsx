@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 
+//aqui se ponen cosas generales de toda la pagina (lo qe va en head y asi)
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {

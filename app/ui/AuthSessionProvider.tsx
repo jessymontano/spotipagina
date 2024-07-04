@@ -4,6 +4,7 @@ import type { Session } from "next-auth";
 import { SessionProvider } from "next-auth/react";
 import React from "react";
 
+//otra cosa rara del spotifai
 function AuthSessionProvider({
   session,
   children,

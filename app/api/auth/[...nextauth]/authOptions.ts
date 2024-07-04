@@ -2,7 +2,7 @@ import spotifyProfile, { refreshAccessToken } from "./SpotifyProfile";
 import { Account } from "next-auth";
 import { JWT } from "next-auth/jwt";
 
-export type AuthUser = {
+export type AuthUser = { //cosas de typescript
   name: string;
   email: string;
   image: string;
@@ -15,7 +15,7 @@ export type AuthUser = {
   id: string;
 };
 
-const authOptions = {
+const authOptions = { //nose se lo copie al github de spotify pero es para el next-auth
   providers: [spotifyProfile],
   session: {
     maxAge: 60 * 60, // 1hr

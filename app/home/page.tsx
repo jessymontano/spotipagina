@@ -5,6 +5,7 @@ import sdk from "@/app/lib/spotify-sdk/ClientInstance";
 import { useSession, signOut, signIn } from "next-auth/react";
 import { useState, useEffect } from 'react';
 
+//tambien me lo robe de spotifai
 export default function Home() {
   const session = useSession();
 

@@ -5,6 +5,7 @@ import argon2 from 'argon2';
 import { NextResponse } from 'next/server';
 import Cryptr from 'cryptr';
 
+//aqi checa si si pusiste bien usuario y contraseña uwu
 if (!process.env.CRYPTR_SECRET) {
     throw new Error('CRYPTR_SECRET is undefined');
 }
@@ -15,9 +16,10 @@ const LoginSchema = z.object({
     password: z.string().min(6),
 });
 
+//la funcion qe deberia estar en el api pero no se porque la movi aqi
 export async function authenticate(body: Promise<any>) {
     const parsedCredentials = LoginSchema.safeParse(body);
-    if (!parsedCredentials.success) {
+    if (!parsedCredentials.success) { //si esta mal escrito 🤔
         return NextResponse.json({message: 'Invalid credentials'}, {status: 400});
     }
 
@@ -26,12 +28,12 @@ export async function authenticate(body: Promise<any>) {
     try {
         const result = await sql`SELECT * FROM users WHERE username=${username}`;
         const user = result.rows[0];
-        if (!user) {
+        if (!user) { //si no existe el usuario en la base de datos
             return NextResponse.json({message: 'Invalid credentials'}, {status: 400});
         }
 
         const passwordsMatch = await argon2.verify(user.password, password);
-        if (!passwordsMatch) {
+        if (!passwordsMatch) { //si la contraseña esta mal
             return NextResponse.json({message: 'Invalid credentials'}, {status: 400});
         }
 

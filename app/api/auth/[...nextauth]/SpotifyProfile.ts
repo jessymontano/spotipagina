@@ -1,6 +1,7 @@
 import { JWT } from "next-auth/jwt";
 import SpotifyProvider from "next-auth/providers/spotify";
 
+//tengo qe hacer esto o sino se enoja el typescript
 if (!process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID) {
   throw new Error("Missing SPOTIFY_CLIENT_ID");
 }
@@ -17,13 +18,10 @@ const spotifyProfile = SpotifyProvider({
 const authURL = new URL("https://accounts.spotify.com/authorize");
 
 const scopes = [
-  "user-read-email",
-  "user-read-private",
-  "user-read-playback-state",
-  "user-library-read",
-  "user-modify-playback-state",
   "playlist-read-private",
   "playlist-read-collaborative",
+  "playlist-modify-private",
+  "playlist-modify-public",
 ];
 
 authURL.searchParams.append("scope", scopes.join(" "));
@@ -32,6 +30,7 @@ spotifyProfile.authorization = authURL.toString();
 
 export default spotifyProfile;
 
+//nose
 export async function refreshAccessToken(token: JWT) {
   try {
     const response = await fetch(authURL, {

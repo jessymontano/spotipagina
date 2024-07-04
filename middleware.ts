@@ -2,19 +2,20 @@
 
 import {NextRequest, NextResponse} from 'next/server';
 
+//cosa horrible que se encarga permitir o prohibir acceso a ciertas paginas...
 export async function middleware(request: NextRequest) {
-    const token = request.cookies.get('token')?.value;
+    const token = request.cookies.get('token')?.value; //token del cookie
 
     try {
         if (token) {
+            //llamar api porqe el edge inutil no sabe hacer nada
             const loggedIn = await fetch('http://localhost:3000/api/verify-token', {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({token}),
             });
-            console.log(loggedIn);
+            //muchos redirects
             if (loggedIn.ok && request.nextUrl.pathname.startsWith('/login')) {
-                
                 return NextResponse.redirect(new URL('/home', request.url));
             } else if (!loggedIn.ok && !request.nextUrl.pathname.startsWith('/login')) {
                 return NextResponse.redirect(new URL('/login', request.url));
@@ -30,6 +31,7 @@ export async function middleware(request: NextRequest) {
     }
 } 
 
+//esto es para qe no haga nada el middleware si estas en estas paginas (api, imagenes, etc lugares random)
 export const config = {
     matcher: ['/((?!api|_next/static|seed|error|_next/image|.*\\.png$).*)'],
 }

@@ -2,7 +2,9 @@
 
 import {FormEvent } from 'react';
 
+//pagina del login
 export default function LoginPage() {
+    //funcion que se encarga de llamar al api cuando se da click al boton submit
     async function handleSubmit(event: FormEvent<HTMLFormElement>) {
         event.preventDefault();
 
@@ -15,8 +17,9 @@ export default function LoginPage() {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify({username, password}),
         });
+        
         if (response.ok) {
-            window.location.href = '/login';
+            window.location.href = '/login'; //creo qe esto nose hace
         } else {
             console.log('invalid credentials');
         }

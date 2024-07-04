@@ -1,6 +1,6 @@
 import argon2 from 'argon2';
 import { db } from '@vercel/postgres';
-
+//IGNORAR ESTO ERA PARA HACER LA TABLA DE LA BASE DE DATOS DBHJGBDFHJ
 const users = [
     {
         id: '0528ef8b-95ea-4b21-812a-d6300e2c7418',

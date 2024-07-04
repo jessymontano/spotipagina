@@ -5,6 +5,7 @@ import { Inter } from "next/font/google";
 
 const inter = Inter({ subsets: ["latin"] });
 
+//este es para qe sirva la sesion de spotify creo
 export default async function RootLayout({
   children,
 }: {
