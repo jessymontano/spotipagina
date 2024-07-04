@@ -1,4 +1,13 @@
 /** @type {import('next').NextConfig} */
-const nextConfig = {};
+const nextConfig = {
+  images: {
+    domains: [
+      "image-cdn-ak.spotifycdn.com",
+      "mosaic.scdn.co",
+      "image-cdn-fa.spotifycdn.com",
+      "i.scdn.co",
+    ],
+  },
+};
 
 export default nextConfig;
