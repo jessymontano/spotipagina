@@ -1,6 +1,6 @@
 'use client';
 
-import { error } from 'console';
+import Image from 'next/image';
 import {FormEvent, use, useState } from 'react';
 
 //pagina del login
@@ -27,46 +27,60 @@ export default function LoginPage() {
         }
     }
     return (
-        <form className="space-y-3 max-w-lg mx-auto mt-8" onSubmit={handleSubmit}>
-            <div className='flex-1 rounded-lg bg-gray-50 px-6 pb-4 pt-8'>
+        <form className= "space-y-3 w-full mx-auto mt-8 bg-black bg-opacity-70" onSubmit={handleSubmit}>
+            <div className='flex-1 mx-auto bg-blend-darken max-w-xl px-6 pb-4 pt-8 text-white'>
+                <div className='text-center m-2'>
+                <Image className='mx-auto mb-6' src={'/images/creeper.png'} alt='Creeper de minecraft' width={100} height={100}></Image>
                 <h1 className='mb-3 text-2xl text-center'>Login</h1>
+                </div>
                 <div className='w-full'>
                     <div>
-                        <label className='mb-3 mt-5 block text-sm font-medium text-gray-900' htmlFor="username">
+                        <label className='mb-3 mt-5 block text-sm font-medium' htmlFor="username">
                             Username
                         </label>
                         <div className='relative'>
                             <input 
-                            className='peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
+                            className='peer block w-full bg-black border border-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-400 focus:outline-none'
                             type="text" 
                             id="username"
                             name="username"
                             placeholder="Introduce tu nombre de usuario"
                             required
                             />
+                            <svg 
+                            className='pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400'
+                            fill="none" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24"> 
+                            <path d="M15 2H9v2H7v6h2V4h6V2zm0 8H9v2h6v-2zm0-6h2v6h-2V4zM4 16h2v-2h12v2H6v4h12v-4h2v6H4v-6z" fill="currentColor"/> </svg>
                         </div>
                     </div>
                     <div className='mt-4'>
                         <label 
-                        className='mb-3 mt-5 block text-sm font-medium text-gray-900'
+                        className='mb-3 mt-5 block text-sm font-medium'
                         htmlFor="password"
                         >
                             Password
                         </label>
                         <div className='relative'>
                             <input 
-                            className='peer block w-full rounded-md border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500'
+                            className='peer block w-full bg-black border border-white py-[9px] pl-10 text-sm outline-2 focus:outline-none placeholder:text-gray-400'
                             type="password" 
                             name="password" 
                             id="password"
                             placeholder="Introduce la contraseña"
                             required
                             minLength={6} />
+                            <svg 
+                            className='pointer-events-none absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400'
+                            fill="none" 
+                            xmlns="http://www.w3.org/2000/svg" 
+                            viewBox="0 0 24 24"> <path d="M15 2H9v2H7v4H4v14h16V8h-3V4h-2V2zm0 2v4H9V4h6zm-6 6h9v10H6V10h3zm4 3h-2v4h2v-4z" fill="currentColor"/> </svg>
                         </div>
                     </div>
                 </div>
-                <div className='text-center'>
-                <button className='mt-4 py-1 w-60 bg-blue-400 rounded-md hover:bg-blue-100' type='submit'>
+                <div className='mt-8 text-center justify-center'>
+                <button className='minecraft-btn mt-4 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200' type='submit'>
                     Log in
                 </button>
                 </div>
