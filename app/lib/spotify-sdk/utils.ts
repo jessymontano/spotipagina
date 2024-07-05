@@ -107,7 +107,7 @@ export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order:
     console.log('sorting playlist...');
     const sortedPlaylistItems = await sortPlaylist(playlistItems, order);
     console.log(sortedPlaylistItems);
-    let snapshot = null;
+    let snapshot: null | string = null;
     let playlistUris = playlistItems.map((item) => {
         return item.uri;
     });
@@ -130,8 +130,7 @@ export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order:
                 let response = await sdk.playlists.updatePlaylistItems(playlistId, {range_start: j, range_length: 1, insert_before: i, snapshot_id: snapshot});
                 snapshot = response.snapshot_id;
             }
-            const uri = playlistUris.splice(j, 1)[0];
-            playlistUris.splice(i, 0, uri);
+            playlistUris.splice(i, 0, playlistUris.splice(j, 1)[0]);
         }
     }
     console.log('playlist sorted');
