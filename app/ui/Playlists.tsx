@@ -24,11 +24,11 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
         fetchPlaylists();
     }, [sdk]);
 
-    const handleClick = (url: string) => {
+    const handleClick = (id: string) => {
         const params = new URLSearchParams(searchParams);
-        url ? params.set('playlistUrl',url) : params.delete('playlistUrl');
+        id ? params.set('playlistId',id) : params.delete('playlistId');
         replace(`${pathname}/sort/?${params.toString()}`);
-        console.log(url)
+        console.log(id)
     }
 
     return (
@@ -39,7 +39,7 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
             key={playlist.id} 
             className="rounded-xl bg-slate-700 p-2 shadow-sm text-center cursor-pointer"
             onClick={() => {
-                handleClick(playlist.external_urls.spotify)
+                handleClick(playlist.external_urls.spotify.split('/playlist/')[1])
             }}
             >
                 <div className="flex p-4">

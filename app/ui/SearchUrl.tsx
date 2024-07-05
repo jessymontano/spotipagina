@@ -5,11 +5,11 @@ export default function SearchUrl() {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
-    const [playlistUrl, setPlaylistUrl] = useState<string>('');
+    const [playlistId, setPlaylistId] = useState<string>('');
 
     const handleSubmit = () => {
         const params = new URLSearchParams(searchParams);
-        playlistUrl ? params.set('playlistUrl', playlistUrl) : params.delete('playlistUrl');
+        playlistId ? params.set('playlistId', playlistId) : params.delete('playlistId');
         replace(`${pathname}/sort/?${params.toString()}`);
     };
 
@@ -20,7 +20,7 @@ export default function SearchUrl() {
             placeholder='url de la pleilis' 
             type="text" 
             className="placeholder:text-slate-400 rounded-md p-3 m-4 border-x-0 border-t-0 border-b-3 border-solid border-b-slate-500 bg-slate-700 focus:outline-none text-white"
-            onChange={(e) => setPlaylistUrl(e.target.value)}
+            onChange={(e) => setPlaylistId(e.target.value.split('/playlist/')[1])}
             />
             <button 
             className="bg-slate-500 text-slate-100 rounded-md p-3"
