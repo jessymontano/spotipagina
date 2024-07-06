@@ -46,7 +46,7 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
             >
                 <div className="flex p-4">
                     {<Image 
-                    src={playlist.images[0].url || '/images/temp.png'} 
+                    src={playlist.images ? playlist.images[0].url : '/images/temp.png'} 
                     alt={playlist.description || playlist.name}
                     width={200}
                     height={200}
