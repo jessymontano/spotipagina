@@ -9,7 +9,7 @@ export default function NavBar() {
         return (
             <nav className="flex bg-black bg-opacity-70 sm:px-60 px-5 sm:pt-4 pt-4 pb-4 sticky top-0 z-30">
                 <div className="flex-1">
-                    <h1 className="font-bold text-white text-2xl">spotipagina</h1>
+                    <Link href='/home' className="font-bold text-white text-2xl">spotipagina</Link>
                 </div>
                 <div className="flex-none">
                     {!session || session.status !== 'authenticated' && (
