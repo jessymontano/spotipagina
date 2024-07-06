@@ -20,6 +20,9 @@ const authOptions = { //nose se lo copie al github de spotify pero es para el ne
   session: {
     maxAge: 60 * 60, // 1hr
   },
+  jwt: {
+    maxAge: 60 *60,
+  },
   callbacks: {
     async jwt({ token, account }: { token: JWT; account: Account | null }) {
       if (!account) {
@@ -56,6 +59,10 @@ const authOptions = { //nose se lo copie al github de spotify pero es para el ne
       };
       session.user = user;
       session.error = token.error;
+      if(!session.user.session_expiry) {
+        const exp = new Date(new Date().getTime() + 12*60*60*1000).toISOString();
+        session.user.session_expiry = exp;
+      }
       return session;
     },
   },
