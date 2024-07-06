@@ -2,7 +2,7 @@ import Image from "next/image"
 
 function PlaylistSkeleton() {
     return (
-        <div className="minecraft-btn border-2 border-b-4 p-2 shadow-sm text-center">
+        <div className="minecraft-btn border-2 border-b-4 p-2 shadow-sm text-center animate-pulse">
             <div className="flex p-4">
                 <Image 
                     src={'/images/temp.png'} 

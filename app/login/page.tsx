@@ -1,7 +1,7 @@
 'use client';
 
 import Image from 'next/image';
-import {FormEvent, use, useState } from 'react';
+import {FormEvent, useState } from 'react';
 
 //pagina del login
 export default function LoginPage() {
