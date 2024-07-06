@@ -23,7 +23,7 @@ export async function getPlaylists(sdk: SpotifyApi) {
     
     if (storedPlaylists) {
         return storedPlaylists as SimplifiedPlaylist[];
-    }
+    } else {
     let playlists = Array();
     let offset = 0;
     let total: number = Number.POSITIVE_INFINITY;
@@ -53,6 +53,7 @@ export async function getPlaylists(sdk: SpotifyApi) {
     localStorage.setItem('playlists', JSON.stringify(item));
     
     return userPlaylists;
+}
 }
 
 async function getPlaylistTracks(sdk: SpotifyApi, id: string) {
