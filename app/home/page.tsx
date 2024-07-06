@@ -1,9 +1,11 @@
 "use client";
 
 import sdk from "@/app/lib/spotify-sdk/ClientInstance";
-import { useSession, signOut, signIn } from "next-auth/react";
+import { useSession, signIn } from "next-auth/react";
 import Playlists from "../ui/Playlists";
 import SearchUrl from "../ui/SearchUrl";
+import { Suspense } from "react";
+import { PlaylistsSkeleton } from "../ui/Skeletons";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 
@@ -17,28 +19,22 @@ export default function Home() {
 
   if (!session || session.status !== "authenticated") {
     return (
-      <div className="mx-auto text-center bg-slate-900 max-w-lg rounded-lg p-4 mt-5">
+      <div className="mx-auto text-center bg-black bg-opacity-50 max-w-3xl p-4 mt-10">
         <h1 className="text-lg text-slate-100 font-semibold">Entra a tu cuenta de spotify para sortear tus pleilists</h1>
-        <button className='bg-slate-400 font-semibold w-full p-1 hover:bg-slate-100 text-slate-900 text-lg rounded-md mt-4 mx-auto' onClick={() => signIn("spotify")}>Sign in with Spotify</button>
+        <button className='minecraft-btn mt-4 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200' onClick={() => signIn("spotify")}>Sign in with Spotify</button>
       </div>
     );
   }
   return (
-    <div className="mx-auto bg-slate-900 max-w-5xl rounded-lg p-4 mt-5">
-      <div className="text-center justify-center w-full top-0 ">
-      <p className="text-lg text-slate-100 font-semibold">Logged in as {session.data.user?.name}</p>
-      <button
-      className='bg-slate-600 font-semibold w-80 p-1 hover:bg-green-100 text-slate-900 text-lg rounded-md mt-4 mx-auto mb-5' 
-      onClick={() => signOut()}>
-        Sign out
-      </button>
-      </div>
+    <div className="mx-auto bg-black bg-opacity-70 max-w-7xl p-10 mt-5">
       <div className="text-center">
       <SearchUrl />
         <h3 className="text-lg font-semibold text-slate-100 mb-6">O elegir playlist</h3>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-      <Playlists sdk={sdk}/>
+      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-40">
+        <Suspense fallback={<PlaylistsSkeleton />}>
+          <Playlists sdk={sdk}/>
+        </Suspense>
       </div>
     </div>
   );

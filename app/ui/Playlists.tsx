@@ -37,26 +37,22 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
             return(
             <div 
             key={playlist.id} 
-            className="rounded-xl bg-slate-700 p-2 shadow-sm text-center cursor-pointer"
+            className="minecraft-btn border-2 border-b-4 hover:text-yellow-200 p-2 shadow-sm text-center cursor-pointer"
             onClick={() => {
                 handleClick(playlist.external_urls.spotify.split('/playlist/')[1])
             }}
             >
                 <div className="flex p-4">
-                    {playlist.images ? 
-                    <Image 
-                    src={playlist.images[0].url} 
+                    {<Image 
+                    src={playlist.images[0].url || '/images/temp.png'} 
                     alt={playlist.description || playlist.name}
-                    width={208}
-                    height={208}
-                    layout='responsive'
-                    objectFit="cover"
-                    className="max-h-52"
-                    /> :
-                    <p>0 imagen</p>}
+                    width={200}
+                    height={200}
+                    className="aspect-square cover"
+                    />}
                 </div>
                 <div>
-                    <h3 className="ml-2 text-sm font-medium text-white">{playlist.name}</h3>
+                    <h3 className="ml-2 text-sm font-medium text-white pb-4">{playlist.name}</h3>
                 </div>
             </div>
             );

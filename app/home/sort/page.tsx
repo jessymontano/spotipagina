@@ -19,7 +19,7 @@ export default function Page() {
 
     const sortPlaylist = async () => {
         setIsSorting(true);
-        await updatePlaylist(sdk, playlistId, order);
+        await updatePlaylist(sdk, playlistId, order, setStatus);
         setIsSorting(false);
         setIsSorted(true);
     };
@@ -32,7 +32,7 @@ export default function Page() {
     return (
         <div>
             {!isSorting && !isSorted && (
-                <div className="bg-slate-800 max-w-3xl p-5 m-6 rounded-lg mx-auto">
+                <div className="bg-black bg-opacity-70 max-w-3xl p-5 m-6 mx-auto">
                     <div className="text-center">
                         <h1 className="text-slate-100 text-2xl font-semibold m-4 p-2">Sortear pleilist</h1>
                         {/**TODO: poner titulo e imagen de playlist */}
@@ -43,7 +43,7 @@ export default function Page() {
                     htmlFor="order"
                     >Elige el orden:</label>
                     <select
-                    className="peer block w-full rounded-md bg-slate-500 py-[9px] pl-10 text-sm outline-2 placeholder:text-slate-300 text-slate-100" 
+                    className="minecraft-btn text-md peer w-full bg-slate-500 py-[9px] pl-10 outline-2 placeholder:text-slate-300 mt-4 flex mx-auto justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200" 
                     name="order" 
                     id="order"
                     onChange={(e) => setOrder(e.target.value === "true")}
@@ -53,7 +53,7 @@ export default function Page() {
                     </select>
                     <div className="text-center">
                     <button 
-                    className="bg-slate-500 text-slate-900 rounded-md hover:bg-slate-300 p-2 m-4"
+                    className="minecraft-btn mt-6 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
                     onClick={sortPlaylist}
                     >
                         Sortear playlist
@@ -64,15 +64,20 @@ export default function Page() {
             }
             {isSorting && (
                 //TODO: agregar progress bar
-                <p className="text-center font-extrabold text-2xl">Acomodando playlist...</p>
+                <div className="text-center m-6 p-6 text-white justify-center bg-black bg-opacity-70">
+                    <h1 className="p-4 mb-8 text-lg">Acomodando playlist: {status}%</h1>
+                <div className="overflow-hidden h-10 mb-10 text-xs flex bg-black border border-white ">
+                    <div style={{width: `${status}%`}} className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-green-500"></div>
+                </div>
+                </div>
             )}
             {isSorted && (
                 //TODO: hacer mas bonito
-                <div className="text-center mx-auto bg-slate-800 max-w-3xl rounded-lg p-5 m-6">
+                <div className="text-center mx-auto bg-black bg-opacity-70 max-w-3xl p-8 m-6">
                     <h3 className="text-2xl text-slate-100 font-bold m-4">Playlist acomodada exitosamente! uwu</h3>
                     <p className="text-lg text-slate-100 font-semibold m-4">listo fakiu</p>
                     <Link 
-                    className="bg-slate-500 text-slate-900 rounded-md hover:bg-slate-300 p-2 m-4"
+                    className="minecraft-btn mt-6 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
                     href="/home"
                     >Sortear otra playlist</Link>
                 </div>

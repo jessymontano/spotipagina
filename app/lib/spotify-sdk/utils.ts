@@ -1,10 +1,28 @@
 import { SpotifyApi, SimplifiedPlaylist, Track } from "@spotify/web-api-ts-sdk";
 
+function getItemWithExpiry(key: string) {
+    const storedItem = localStorage.getItem(key);
+
+    if (!storedItem) {
+        return null;
+    }
+
+    const item = JSON.parse(storedItem);
+    const now = new Date().getTime();
+
+    if (now > item.timestamp) {
+        localStorage.removeItem(key);
+        return null
+    }
+
+    return item.value;
+}
+
 export async function getPlaylists(sdk: SpotifyApi) {
-    const storedPlaylists = localStorage.getItem('playlists');
+    const storedPlaylists = getItemWithExpiry('playlists');
     
     if (storedPlaylists) {
-        return JSON.parse(storedPlaylists) as SimplifiedPlaylist[];
+        return storedPlaylists as SimplifiedPlaylist[];
     }
     let playlists = Array();
     let offset = 0;
@@ -30,8 +48,9 @@ export async function getPlaylists(sdk: SpotifyApi) {
     const userPlaylists = playlists.filter((playlist) => {
         return playlist.owner.id === currentUser.id;
     })
-
-    localStorage.setItem('playlists', JSON.stringify(userPlaylists));
+    
+    const item = {value: userPlaylists, timestamp: new Date().getTime() + 3600000}
+    localStorage.setItem('playlists', JSON.stringify(item));
     
     return userPlaylists;
 }
@@ -101,12 +120,10 @@ async function sortPlaylist(playlist: Track[], order: boolean) {
     return sortedPlaylist;
 }
 
-export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order: boolean) {
-    console.log('getting playlist items...');
+export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order: boolean, updateProgress: (progress: number) => void) {
     const playlistItems = await getPlaylistTracks(sdk, playlistId);
-    console.log('sorting playlist...');
     const sortedPlaylistItems = await sortPlaylist(playlistItems, order);
-    console.log(sortedPlaylistItems);
+    
     let snapshot: null | string = null;
     let playlistUris = playlistItems.map((item) => {
         return item.uri;
@@ -114,14 +131,13 @@ export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order:
     const sortedUris = sortedPlaylistItems.map((item) => {
         return item.uri;
     });
-    console.log('updating playlist...');
+    
     for (let i = 0; i < sortedPlaylistItems.length; i++) {
         let sortedUri = sortedUris[i];
 
         if (!playlistUris.includes(sortedUri)) continue;
         let j = playlistUris.indexOf(sortedUri);
 
-        console.log(`moving ${sortedUri} from ${j} to ${i}`)
         if (j !== i) {
             if (!snapshot) {
                 let response = await sdk.playlists.updatePlaylistItems(playlistId, {range_start: j, range_length: 1, insert_before: i});
@@ -131,7 +147,7 @@ export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order:
                 snapshot = response.snapshot_id;
             }
             playlistUris.splice(i, 0, playlistUris.splice(j, 1)[0]);
+            updateProgress(Math.round(((i + 1) / sortedPlaylistItems.length) * 100));
         }
     }
-    console.log('playlist sorted');
 }
