@@ -1,6 +1,6 @@
 'use client';
 
-import { updatePlaylist} from "@/app/lib/spotify-sdk/utils";
+import { updatePlaylist, getPlaylistInfo } from "@/app/lib/spotify-sdk/utils";
 import { useSession } from "next-auth/react";
 import sdk from "@/app/lib/spotify-sdk/ClientInstance";
 import { useSearchParams } from "next/navigation";
@@ -13,11 +13,17 @@ export default function Page() {
     const [order, setOrder] = useState(true);
     const searchParams = useSearchParams();
     const playlistId = searchParams.get('playlistId') ?? '';
-    const playlistName = searchParams.get('name') ?? 'Sin nombre';
-    const playlistImage = searchParams.get('image') ?? '/images/temp.png';
+    const [playlistName, setPlaylistName] = useState('Sin nombre');
+    const [playlistImage, setPlaylistImage] = useState('/images/temp.png');
     const [status, setStatus] = useState(0);
     const [ isSorting, setIsSorting] = useState(false);
     const [isSorted, setIsSorted] = useState(false);
+
+    useState(async () => {
+        const info = await getPlaylistInfo(sdk, playlistId);
+        setPlaylistName(info.name);
+        setPlaylistImage(info.imageUrl);
+    })
 
     const sortPlaylist = async () => {
         setIsSorting(true);
@@ -82,7 +88,7 @@ export default function Page() {
                     <p className="text-lg text-slate-100 font-semibold m-4">listo fakiu</p>
                     <Link 
                     className="minecraft-btn mt-6 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
-                    href="/home"
+                    href="/home/playlists"
                     >Sortear otra playlist</Link>
                 </div>
             )}

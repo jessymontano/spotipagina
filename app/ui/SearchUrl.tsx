@@ -1,5 +1,5 @@
 import { useSearchParams, usePathname, useRouter} from "next/navigation"
-import { useState } from "react";
+import React, { useState } from "react";
 
 export default function SearchUrl() {
     const searchParams = useSearchParams();
@@ -13,6 +13,13 @@ export default function SearchUrl() {
         replace(`${pathname}/sort/?${params.toString()}`);
     };
 
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const url = e.target.value;
+        const match = url.match(/\/playlist\/([^?]+)/);
+        const id = match ? match[1] : '';
+        setPlaylistId(id);
+    };
+
     return (
         <>
             <h3 className="text-lg font-semibold text-slate-100 mb-2">Buscar con URL</h3>
@@ -22,7 +29,7 @@ export default function SearchUrl() {
                         placeholder='URL de la playlist' 
                         type="text" 
                         className="peer block bg-black border border-white py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-400 focus:outline-none m-4 focus:text-white"
-                        onChange={(e) => setPlaylistId(e.target.value.split('/playlist/')[1])}
+                        onChange={handleInputChange}
                     />
                     <svg 
                         className="pointer-events-none absolute left-7 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-400"

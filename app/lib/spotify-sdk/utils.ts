@@ -56,6 +56,13 @@ export async function getPlaylists(sdk: SpotifyApi) {
 }
 }
 
+export async function getPlaylistInfo(sdk: SpotifyApi, playlistId: string) {
+    const {name, images} = await sdk.playlists.getPlaylist(playlistId, 'MX', 'name, images');
+
+    const info = {name: name, imageUrl: images[0].url};
+    return info
+}
+
 async function getPlaylistTracks(sdk: SpotifyApi, id: string) {
     let tracks: Track[] = [];
     let offset = 0;
@@ -69,7 +76,6 @@ async function getPlaylistTracks(sdk: SpotifyApi, id: string) {
             }
             const extractedTracks = playlistTracks.items.map(item => item.track);
             tracks.push(...extractedTracks);
-            console.log(playlistTracks.total);
             
             offset += 50;
             total = playlistTracks.total;
@@ -103,7 +109,6 @@ async function sortPlaylist(playlist: Track[], order: boolean) {
 
     const sortedAlbums = Object.entries(albums)
     .sort((a, b) => {
-        const multiplier = order ? -1 : 1;
         const dateA = new Date(a[1][0].album.release_date).getTime();
         const dateB = new Date(b[1][0].album.release_date).getTime();
 

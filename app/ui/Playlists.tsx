@@ -24,11 +24,9 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
         fetchPlaylists();
     }, [sdk]);
 
-    const handleClick = (id: string, name: string, image: string) => {
+    const handleClick = (id: string) => {
         const params = new URLSearchParams(searchParams);
         id ? params.set('playlistId',id) : params.delete('playlistId');
-        image ? params.set('image', image) : params.set('image', '');
-        name ? params.set('name', name) : params.set('name', '');
         replace(`${pathname}/sort/?${params.toString()}`);
         console.log(id)
     }
@@ -41,7 +39,7 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
             key={playlist.id} 
             className="minecraft-btn border-2 border-b-4 hover:text-yellow-200 p-2 shadow-sm text-center cursor-pointer"
             onClick={() => {
-                handleClick(playlist.external_urls.spotify.split('/playlist/')[1], playlist.name, playlist.images[0].url)
+                handleClick(playlist.external_urls.spotify.split('/playlist/')[1])
             }}
             >
                 <div className="flex p-4">
