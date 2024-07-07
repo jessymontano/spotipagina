@@ -4,6 +4,7 @@ import sdk from "@/app/lib/spotify-sdk/ClientInstance";
 import { useSession, signIn } from "next-auth/react";
 import Playlists from "@/app/ui/Playlists";
 import SearchUrl from "@/app/ui/SearchUrl";
+import RefreshButton from "@/app/ui/RefreshButton";
 
 const clientId = process.env.NEXT_PUBLIC_SPOTIFY_CLIENT_ID;
 
@@ -27,7 +28,10 @@ export default function Page() {
     <div className="mx-auto bg-black bg-opacity-70 max-w-7xl p-10 mt-5">
       <div className="text-center">
       <SearchUrl />
-        <h3 className="text-lg font-semibold text-slate-100 mb-6">O elegir playlist</h3>
+        <div className="flex justify-center items-center">
+          <h3 className="text-lg font-semibold text-slate-100 mb-6">O elegir playlist</h3>
+          <RefreshButton />
+        </div>
       </div>
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-40">
         <Playlists sdk={sdk}/>
