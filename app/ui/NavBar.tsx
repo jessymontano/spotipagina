@@ -15,7 +15,7 @@ export default function NavBar() {
                     <Link href='/home/playlists' className="font-bold text-white text-lg hover:text-blue-300">Playlists</Link>
                 </div>
                 <div className="mx-6 mt-2">
-                    <Link href='/home/juzgar' className="font-bold text-white text-lg hover:text-blue-300">Juzgar</Link>
+                    <Link href='/home/juzgar-playlist' className="font-bold text-white text-lg hover:text-blue-300">Juzgar</Link>
                 </div>
                 <div className="flex-none">
                     {!session || session.status !== 'authenticated' && (

@@ -4,7 +4,7 @@ import { updatePlaylist, getPlaylistInfo } from "@/app/lib/spotify-sdk/utils";
 import { useSession } from "next-auth/react";
 import sdk from "@/app/lib/spotify-sdk/ClientInstance";
 import { useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -19,11 +19,14 @@ export default function Page() {
     const [ isSorting, setIsSorting] = useState(false);
     const [isSorted, setIsSorted] = useState(false);
 
-    useState(async () => {
-        const info = await getPlaylistInfo(sdk, playlistId);
+    useEffect(() => {
+        const fetchPlaylistInfo = async () => {
+            const info = await getPlaylistInfo(sdk, playlistId);
         setPlaylistName(info.name);
         setPlaylistImage(info.imageUrl);
-    })
+        }
+        fetchPlaylistInfo();
+    }, [playlistId]);
 
     const sortPlaylist = async () => {
         setIsSorting(true);

@@ -1,7 +1,9 @@
+'use client';
+
 import { useSearchParams, usePathname, useRouter} from "next/navigation"
 import React, { useState } from "react";
 
-export default function SearchUrl() {
+export default function SearchUrl({path}: {path: string}) {
     const searchParams = useSearchParams();
     const pathname = usePathname();
     const { replace } = useRouter();
@@ -10,7 +12,7 @@ export default function SearchUrl() {
     const handleSubmit = () => {
         const params = new URLSearchParams(searchParams);
         playlistId ? params.set('playlistId', playlistId) : params.delete('playlistId');
-        replace(`${pathname}/sort/?${params.toString()}`);
+        replace(`${pathname}/${path}/?${params.toString()}`);
     };
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

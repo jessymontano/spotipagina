@@ -63,7 +63,7 @@ export async function getPlaylistInfo(sdk: SpotifyApi, playlistId: string) {
     return info
 }
 
-async function getPlaylistTracks(sdk: SpotifyApi, id: string) {
+export async function getPlaylistTracks(sdk: SpotifyApi, id: string) {
     let tracks: Track[] = [];
     let offset = 0;
     let total: number = Number.POSITIVE_INFINITY;
@@ -156,4 +156,8 @@ export async function updatePlaylist(sdk: SpotifyApi, playlistId: string, order:
             updateProgress(Math.round(((i + 1) / sortedPlaylistItems.length) * 100));
         }
     }
+}
+
+export async function removeTrack(sdk: SpotifyApi, playlistId: string, trackUri: string) {
+    sdk.playlists.removeItemsFromPlaylist(playlistId, {tracks: [{uri: trackUri}]})
 }

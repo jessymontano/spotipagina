@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useState, useEffect} from "react";
 import { useSearchParams, useRouter, usePathname } from "next/navigation";
 
-export default function Playlists({sdk}: {sdk: SpotifyApi}) {
+export default function Playlists({sdk, path}: {sdk: SpotifyApi, path: string}) {
     const [playlists, setPlaylists] = useState<SimplifiedPlaylist[]>([]);
     const searchParams = useSearchParams();
     const pathname = usePathname();
@@ -27,7 +27,7 @@ export default function Playlists({sdk}: {sdk: SpotifyApi}) {
     const handleClick = (id: string) => {
         const params = new URLSearchParams(searchParams);
         id ? params.set('playlistId',id) : params.delete('playlistId');
-        replace(`${pathname}/sort/?${params.toString()}`);
+        replace(`${pathname}/${path}/?${params.toString()}`);
         console.log(id)
     }
 

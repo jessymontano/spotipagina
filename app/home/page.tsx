@@ -21,10 +21,10 @@ export default function Home() {
                 <Link className='minecraft-btn mx-4 flex w-50 justify-center text-white truncate p-2 border-2 border-b-4 hover:text-yellow-200' href='/home/playlists'>
                     acomodar plelis!!!!
                 </Link>
-                <Link className='minecraft-btn mx-4 flex w-50 justify-center text-white truncate p-2 border-2 border-b-4 hover:text-yellow-200' href='/home/juzgar'>
+                <Link className='minecraft-btn mx-4 flex w-50 justify-center text-white truncate p-2 border-2 border-b-4 hover:text-yellow-200' href='/home/juzgar-playlist'>
                     juzgar canciones muajaja
                 </Link>
             </div>
         </div>
-    )
+    );
 }
