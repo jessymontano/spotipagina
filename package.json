@@ -11,7 +11,7 @@
   "dependencies": {
     "@spotify/web-api-ts-sdk": "^1.2.0",
     "@vercel/postgres": "^0.9.0",
-    "argon2": "^0.40.3",
+    "argon2": "^0.31.2",
     "bcryptjs-react": "^2.4.6",
     "cryptr": "^6.3.0",
     "next": "14.2.4",
