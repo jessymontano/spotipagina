@@ -2,6 +2,8 @@
 
 import {NextRequest, NextResponse} from 'next/server';
 
+const hostname = process.env.HOSTNAME;
+
 //cosa horrible que se encarga permitir o prohibir acceso a ciertas paginas...
 export async function middleware(request: NextRequest) {
     const token = request.cookies.get('token')?.value; //token del cookie
@@ -9,7 +11,7 @@ export async function middleware(request: NextRequest) {
     try {
         if (token) {
             //llamar api porqe el edge inutil no sabe hacer nada
-            const loggedIn = await fetch('http://localhost:3000/api/verify-token', {
+            const loggedIn = await fetch(`${hostname}/api/verify-token`, {
                 method: 'POST',
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify({token}),
