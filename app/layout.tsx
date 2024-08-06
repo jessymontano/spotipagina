@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import local from "next/font/local";
 
-//aqui se ponen cosas generales de toda la pagina (lo qe va en head y asi)
-const inter = Inter({ subsets: ["latin"] });
 const minecraftia = local({
   src: [
     {
@@ -15,8 +12,8 @@ const minecraftia = local({
 })
 
 export const metadata: Metadata = {
-  title: "Sorter de spotifai",
-  description: "Sortear pleilis de spotifai",
+  title: "Sorter de spotify",
+  description: "Sortear playlists de spotify",
 };
 
 export default function RootLayout({

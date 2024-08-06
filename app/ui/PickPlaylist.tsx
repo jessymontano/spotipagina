@@ -16,7 +16,7 @@ export default function PickPlaylists({path, title}: {path: string, title: strin
                     <RefreshButton />
                 </div>
             </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-40">
+            <div className="justify-center grid gap-6 sm:grid-cols-2 lg:grid-cols-4 px-40">
                 <Playlists sdk={sdk} path={path}/>
             </div>
         </div>

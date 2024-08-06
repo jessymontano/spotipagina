@@ -43,12 +43,12 @@ export default function Page() {
     return (
         <div>
             {!isSorting && !isSorted && (
-                <div className="bg-black bg-opacity-70 max-w-3xl p-5 m-6 mx-auto">
+                <div className="bg-black bg-opacity-70 max-w-3xl p-1 md:p-5 m-6 mx-auto">
                     <h1 className="text-2xl text-white font-semibold mt-4 p-2 col text-center">Sortear playlist:</h1>
-                    <div className="flex items-start">
-                        <div className="mx-6 mb-8 p-5">
+                    <div className="md:flex md:items-start">
+                        <div className="mx-6 lg:mb-8 p-5 text-center">
                             <h2 className="text-lg text-center mb-2 text-white m-2 p-2">{playlistName}</h2>
-                            <Image src={playlistImage} alt={playlistName} width={200} height={200}/>
+                            <Image className="mx-auto" src={playlistImage} alt={playlistName} width={200} height={200}/>
                         </div>
                         <div className="mr-6 mb-8 p-5">
                     <label 
@@ -66,7 +66,7 @@ export default function Page() {
                     </select>
                     <div className="text-center">
                     <button 
-                    className="minecraft-btn mt-10 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
+                    className="minecraft-btn mt-10 flex mx-auto w-80 md:w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
                     onClick={sortPlaylist}
                     >
                         Sortear playlist
@@ -88,7 +88,6 @@ export default function Page() {
             {isSorted && (
                 <div className="text-center mx-auto bg-black bg-opacity-70 max-w-3xl p-8 m-6">
                     <h3 className="text-2xl text-slate-100 font-bold m-4">Playlist acomodada exitosamente! uwu</h3>
-                    <p className="text-lg text-slate-100 font-semibold m-4">listo fakiu</p>
                     <Link 
                     className="minecraft-btn mt-6 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
                     href="/home/playlists"

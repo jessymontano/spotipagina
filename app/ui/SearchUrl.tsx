@@ -25,7 +25,7 @@ export default function SearchUrl({path}: {path: string}) {
     return (
         <>
             <h3 className="text-lg font-semibold text-slate-100 mb-2">Buscar con URL</h3>
-            <div className="flex items-center justify-center">
+            <div className="md:flex items-center justify-center">
                 <div className="relative">
                     <input 
                         placeholder='URL de la playlist' 
@@ -40,7 +40,7 @@ export default function SearchUrl({path}: {path: string}) {
                         viewBox="0 0 24 24"> <path d="M4 6h7v2H4v8h7v2H2V6h2zm16 0h-7v2h7v8h-7v2h9V6h-2zm-3 5H7v2h10v-2z" fill="currentColor"/> </svg>
                 </div>
                 <button 
-                    className="minecraft-btn flex w-50 justify-center text-white truncate p-2 border-2 border-b-4 hover:text-yellow-200"
+                    className="minecraft-btn flex w-50 mx-auto mb-3 md:mx-0 md:mb-0 justify-center text-white truncate p-2 border-2 border-b-4 hover:text-yellow-200"
                     onClick={handleSubmit}
                     >Buscar playlist</button>
             </div>
