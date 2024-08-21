@@ -40,15 +40,16 @@ export default function Page() {
     const handleSwipeLeft = (trackUri: string) => {
         console.log('eliminado');
         handleDelete(trackUri);
-        showNextTrack();
+        if (index < tracks.length - 1) {
+            setIndex(index);
+        } else {
+            console.log("fin de la pleilis");
+            setFinished(true);
+        }
     }
 
     const handleSwipeRight = () => {
         console.log('no eliminado uwu');
-        showNextTrack();
-    }
-
-    const showNextTrack = () => {
         if (index < tracks.length - 1) {
             setIndex(index + 1);
         } else {
