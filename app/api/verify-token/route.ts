@@ -2,7 +2,6 @@ import Cryptr from 'cryptr';
 import { NextRequest, NextResponse } from 'next/server';
 import { sql } from '@vercel/postgres';
 
-//api para ver si el token si es el uuid(??????)
 if (!process.env.CRYPTR_SECRET) {
     throw new Error('CRYPTR_SECRET is undefined');
 }

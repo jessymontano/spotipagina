@@ -1,12 +1,14 @@
 'use client';
 
 import { getPlaylistTracks } from "@/app/lib/spotify-sdk/utils";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import sdk from '@/app/lib/spotify-sdk/ClientInstance';
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import type { Track } from "@spotify/web-api-ts-sdk";
 import { removeTrack } from "@/app/lib/spotify-sdk/utils";
+import Image from "next/image";
+import SongPreview from "@/app/ui/SongPreview";
 
 export default function Page() {
     const session = useSession();
@@ -26,7 +28,6 @@ export default function Page() {
         removeTrack(sdk, playlistId, trackUri);
         setTracks(prevTracks => prevTracks.filter(track => track.uri !== trackUri));
     }
-
     if (!session || session.status !== "authenticated") {
         return (
             window.location.href = '/home'
@@ -34,20 +35,11 @@ export default function Page() {
     }
 
     return (
-        <div className="mx-auto bg-black bg-opacity-70 max-w-7xl p-10 mt-5">
+        <div className="mx-auto bg-black bg-opacity-70 max-w-7xl p-10 mt-5 justify-center grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {tracks.map((track) => {
             return (
                 <div key={track.id} className="flex m-6 justify-center">
-                    <iframe 
-                        className="flex-1 max-w-6xl" 
-                        src={`https://open.spotify.com/embed/track/${track.id}?utm_source=generator`} 
-                        width='50%' 
-                        height="152" 
-                        frameBorder="0" 
-                        allowFullScreen 
-                        allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" 
-                        loading="lazy"
-                    ></iframe>
+                    <SongPreview track={track} />
                     <button onClick={() => handleDelete(track.uri)} className="max-w-16 flex-1 ml-4 p-2 minecraft-btn justify-center text-white truncate border-2 border-b-4 hover:text-yellow-200">
                     <svg 
                     className="text-white"

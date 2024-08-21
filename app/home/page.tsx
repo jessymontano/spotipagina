@@ -2,6 +2,7 @@
 
 import { useSession, signIn } from "next-auth/react"
 import Link from "next/link";
+import argon2 from 'argon2';
 
 export default function Home() {
     const session = useSession();

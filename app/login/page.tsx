@@ -80,7 +80,7 @@ export default function LoginPage() {
                     </div>
                 </div>
                 <div className='mt-8 text-center justify-center'>
-                <button className='minecraft-btn mt-4 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200' type='submit'>
+                <button id='boton-login' className='minecraft-btn mt-4 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200' type='submit'>
                     Log in
                 </button>
                 </div>
