@@ -1,5 +1,3 @@
-auxilio me desmayo
-
 ## tutorial
 
 paso 1: instalar dependencias
@@ -7,7 +5,7 @@ paso 1: instalar dependencias
 npm install
 ```
 
-paso 2: correr deste
+paso 2: 
 ```bash
 npm run dev
 ```
