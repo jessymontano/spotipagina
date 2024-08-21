@@ -1,20 +1,22 @@
 'use client';
 
 import { getPlaylistTracks } from "@/app/lib/spotify-sdk/utils";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import sdk from '@/app/lib/spotify-sdk/ClientInstance';
 import { useSession } from "next-auth/react";
 import { useSearchParams } from "next/navigation";
 import type { Track } from "@spotify/web-api-ts-sdk";
 import { removeTrack } from "@/app/lib/spotify-sdk/utils";
-import Image from "next/image";
 import SongPreview from "@/app/ui/SongPreview";
+import Link from "next/link";
 
 export default function Page() {
     const session = useSession();
     const searchParams = useSearchParams();
     const playlistId = searchParams.get('playlistId') ?? '';
     const [tracks, setTracks] = useState<Track[]>([]);
+    const [index, setIndex] = useState(0);
+    const [finished, setFinished] = useState(false);
 
     useEffect(() => {
         const fetchPlaylists = async () => {
@@ -26,8 +28,35 @@ export default function Page() {
 
     const handleDelete = async (trackUri: string) => {
         removeTrack(sdk, playlistId, trackUri);
-        setTracks(prevTracks => prevTracks.filter(track => track.uri !== trackUri));
+        setTracks(prevTracks => {
+            const updatedTracks = prevTracks.filter(track => track.uri !== trackUri);
+            if (index >= updatedTracks.length) {
+                setIndex(updatedTracks.length - 1);
+            }
+            return updatedTracks;
+        });
     }
+
+    const handleSwipeLeft = (trackUri: string) => {
+        console.log('eliminado');
+        handleDelete(trackUri);
+        showNextTrack();
+    }
+
+    const handleSwipeRight = () => {
+        console.log('no eliminado uwu');
+        showNextTrack();
+    }
+
+    const showNextTrack = () => {
+        if (index < tracks.length - 1) {
+            setIndex(index + 1);
+        } else {
+            console.log("fin de la pleilis");
+            setFinished(true);
+        }
+    }
+
     if (!session || session.status !== "authenticated") {
         return (
             window.location.href = '/home'
@@ -35,21 +64,18 @@ export default function Page() {
     }
 
     return (
-        <div className="mx-auto bg-black bg-opacity-70 max-w-7xl p-10 mt-5 justify-center grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {tracks.map((track) => {
-            return (
-                <div key={track.id} className="flex m-6 justify-center">
-                    <SongPreview track={track} />
-                    <button onClick={() => handleDelete(track.uri)} className="max-w-16 flex-1 ml-4 p-2 minecraft-btn justify-center text-white truncate border-2 border-b-4 hover:text-yellow-200">
-                    <svg 
-                    className="text-white"
-                    fill="none" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    viewBox="0 0 24 24"> <path d="M16 2v4h6v2h-2v14H4V8H2V6h6V2h8zm-2 2h-4v2h4V4zm0 4H6v12h12V8h-4zm-5 2h2v8H9v-8zm6 0h-2v8h2v-8z" fill="currentColor"/> </svg>
-                    </button>
+            <>
+            {!finished && tracks.length > 0 && (
+                <div className="flex m-6 justify-center">
+                    <SongPreview track={tracks[index]} onSwipeLeft={handleSwipeLeft} onSwipeRight={handleSwipeRight} />
                 </div>
-            );
-        })}
-        </div>
+            )}
+            {finished && (
+                <div>
+                    <h1>Fin de la pleilis</h1>
+                    <Link href='/home/juzgar'>Juzgar otra pleilis</Link>
+                </div>
+            )}
+            </>
     );
 }

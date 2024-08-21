@@ -70,7 +70,7 @@ export async function getPlaylistTracks(sdk: SpotifyApi, id: string) {
     
     while (offset < total) {
         try {
-            let playlistTracks = await sdk.playlists.getPlaylistItems(id, 'MX', 'items(track(album(release_date,total_tracks,id,images),disc_number,track_number,id,uri,preview_url)),total', 50, offset);
+            let playlistTracks = await sdk.playlists.getPlaylistItems(id, 'MX', 'items(track(album(release_date,total_tracks,id,images),disc_number,track_number,id,uri,preview_url,name,artists)),total', 50, offset);
             playlistTracks.items.map(item => console.log(item.track.preview_url));
             if (!playlistTracks || !playlistTracks.items) {
                 break;
