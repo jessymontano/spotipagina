@@ -72,9 +72,11 @@ export default function Page() {
                 </div>
             )}
             {finished && (
-                <div>
-                    <h1>Fin de la pleilis</h1>
-                    <Link href='/home/juzgar'>Juzgar otra pleilis</Link>
+                <div className="text-center mx-auto bg-black bg-opacity-70 max-w-3xl p-8 m-6">
+                    <h1 className="text-2xl text-slate-100 font-bold m-4">Fin de la pleilis</h1>
+                    <Link 
+                    className="minecraft-btn mt-6 flex mx-auto w-64 justify-center text-white truncate p-1 border-2 border-b-4 hover:text-yellow-200"
+                    href='/home/juzgar-playlist'>Juzgar otra pleilis</Link>
                 </div>
             )}
             </>
