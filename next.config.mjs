@@ -8,6 +8,7 @@ const nextConfig = {
       "i.scdn.co",
     ],
   },
+  bundlePagesRouterDependencies: true,
 };
 
 export default nextConfig;
