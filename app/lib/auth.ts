@@ -39,7 +39,8 @@ export async function authenticate(body: Promise<any>) {
 
         const sessionToken = cryptr.encrypt(user.id);
         const response = NextResponse.json({message: 'authenticated'}, {status: 200});
-        cookies().set({
+        const cookieStore = await cookies();
+        cookieStore.set({
             name: 'token',
             value: sessionToken,
             httpOnly: true,
